@@ -1,0 +1,4 @@
+#!/bin/bash
+preset=""
+usedefaultflags="true"
+presetformat="1"

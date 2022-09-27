@@ -1,0 +1,5 @@
+#!/bin/bash
+preset="Allow Joining Survival Servers|Animated Water|Bind \"Q\" Key To Item Dropping|Bind Common Toggleable Options To Function Keys|Close Current Screen On Death|Disable Autojump By Default|Disable V-Sync|Display Nametags By Default|Expand Creative Inventory|External Server Support|Fix Attacking|Fix Bow & Arrow|Fix Camera Rendering|Fix Furnace Not Checking Item Auxiliary|Improved Classic Title Screen|Fix Pause Menu|Fix Sign Placement|Force Touch GUI Button Behavior|Force Touch GUI Inventory|Implement Chat|Implement Create World Dialog|Implement Death Messages|Implement Game-Mode Switching|Implement Sound Engine|Improved Button Hover Behavior|Improved Cursor Rendering|Improved Title Background|Load Language Files|Miscellaneous Input Fixes|Remove Invalid Item Background|Render Selected Item Text|Show Block Outlines|Translucent Toolbar|Disable Creative Mode Mining Delay|Full Touch GUI"
+usedefaultflags="false"
+presetversion="1.01"
+presetformat="1"
