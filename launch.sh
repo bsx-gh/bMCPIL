@@ -119,6 +119,18 @@ else
 . ./presets/$presetsel
 fi
 
+if [[ "$enableupdater" == "false" ]];
+then
+game_check=`ls minecraft-pi-reborn-client-*.AppImage`
+	if [ "$game_check" == "" ]
+	then
+	echo "${red}[Error] Can't find MCPI AppImage. Try enabling the updater in your config.${rst}"
+	fi
+else
+updater
+fi
+
+
 if [[ "$usedefaultflags" == "true" ]];
 then
 MCPI_RENDER_DISTANCE="$renderdistance" MCPI_USERNAME="$username" ./minecraft-pi-reborn-client-*.AppImage --default --no-cache
@@ -132,4 +144,3 @@ if [[ "$asktoexit" == "true" ]];
 then
     read -p "Press [Enter] to close the program."
 fi
-
