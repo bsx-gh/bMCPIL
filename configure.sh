@@ -143,6 +143,29 @@ echo ""
 
 # Print the comments preceding the actual configuration
 echo '
+# UpdateServer
+# - The server to download MCPI packages from' >> config.bcfg
+# Write the real configurations
+echo -n 'updateserver="' >> config.bcfg
+# Ask the user for their preference
+echo "Which version of MCPI do you want to use?"
+echo "MCPI is the normal version of MCPI Reborn, and it's the recommended option"
+echo "MCPI++ (mcpipp) is a fork created by PiNooz. It has extra compatibilty for WSL."
+echo ""
+read -p "Select one: (mcpi/mcpipp) " updateserver
+# Make sure it's valid, otherwise print an error and default to true
+if [[ "$updateserver" == "" || "$updateserver" == "mcpipp" || "$updateserver" == "mcpi" ]];
+then
+    echo -n $updateserver >> config.bcfg
+else
+    echo -n "true" >> config.bcfg
+    echo "${red}[Error] Unknown value. Defaulting to mcpi.${rst}"
+fi
+echo '"' >> config.bcfg
+echo ""
+
+# Print the comments preceding the actual configuration
+echo '
 # Preset
 # - Which flag preset should the game use?' >> config.bcfg
 # Write the real configurations
@@ -150,8 +173,7 @@ echo -n 'presetsel="' >> config.bcfg
 # Ask the user for their preference
 presetopt=`ls ./presets/`
 presetopt=`echo "$presetopt" | tr '\n' ' '`
-read -p "Select a launch flag preset: ( $presetopt) " presetsel
-# Make sure it's valid, otherwise print an error and default to true
+read -p "Select a launch flag preset: ( ${presetopt}) " presetsel
 echo -n $presetsel >> config.bcfg
 echo '"' >> config.bcfg
 echo ""
@@ -201,6 +223,5 @@ fi
 echo -n 'cpuarch="' >> config.bcfg
 echo -n $cpuarch >> config.bcfg
 echo '"' >> config.bcfg
-
 
 
