@@ -16,6 +16,7 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 launcherversion="1.01"
 launcherPformat="1"
+
 bld=$(tput bold)       # Bold
 red=$(tput setaf 1)    # Red
 grn=$(tput setaf 2)    # Green
@@ -25,9 +26,14 @@ pur=$(tput setaf 5)    # Purple
 cyn=$(tput setaf 6)    # Cyan
 wht=$(tput setaf 7)    # White
 rst=$(tput sgr0)       # Text reset
+
 function updater() {
 # Download the ZSYNC file from TheBrokenRail's servers
+if [ "$updateserver" = "mcpipp" ]; then
+wget -q -O mcpi.zsync "https://github.com/NoozSBC/mcpi-reborn-extended/releases/latest/download/minecraft-pi-reborn-client-$cpuarch.AppImage.zsync"
+else
 wget -q -O mcpi.zsync "https://jenkins.thebrokenrail.com/job/minecraft-pi-reborn/job/master/lastSuccessfulBuild/artifact/out/minecraft-pi-reborn-client-latest-$cpuarch.AppImage.zsync" 
+fi
 
 # Retrieve the first 2 lines of data from the zsync file.
 zsync_out=`grep -a -A1 zsync mcpi.zsync`
@@ -55,8 +61,13 @@ echo ""
 # Move any existing mcpi AppImages to a temporary folder
 mkdir -p "old"
 mv -i minecraft-pi-reborn-client-*.AppImage "old"
+
 # Download the game AppImage
+if [ "$updateserver" = "mcpipp" ]; then
+wget -q "https://github.com/NoozSBC/mcpi-reborn-extended/releases/latest/download/$zsync_out"
+else
 wget -q "https://jenkins.thebrokenrail.com/job/minecraft-pi-reborn/job/master/lastSuccessfulBuild/artifact/out/$zsync_out"
+fi
 
 # Set the game AppImage executable
 chmod +x $zsync_out
@@ -113,8 +124,8 @@ fi
 preset_check=`ls ./presets/$presetsel`
 if [ "$preset_check" != "./presets/$presetsel" ]
 then
-echo "${red}[Error] Unknown preset [$presetsel], please reconfigure your game. Loading from default.${rst}"
-. ./presets/default
+echo "${red}[Error] Unknown preset [$presetsel], please reconfigure your game. Loading from normal.${rst}"
+. ./presets/normal
 else
 . ./presets/$presetsel
 fi
@@ -131,9 +142,12 @@ updater
 fi
 
 
-if [[ "$usedefaultflags" == "true" ]];
-then
+if [[ "$usedefaultflags" == "true" ]]; then
 MCPI_RENDER_DISTANCE="$renderdistance" MCPI_USERNAME="$username" ./minecraft-pi-reborn-client-*.AppImage --default --no-cache
+elif [[ "$askonlaunch" == "true" ]]; then
+MCPI_RENDER_DISTANCE="$renderdistance" MCPI_USERNAME="$username" ./minecraft-pi-reborn-client-*.AppImage --no-cache
+elif [[ "$normallaunch" == "true" ]]; then
+MCPI_RENDER_DISTANCE="$renderdistance" MCPI_USERNAME="$username" ./minecraft-pi-reborn-client-*.AppImage
 else
 MCPI_FEATURE_FLAGS="$preset" MCPI_RENDER_DISTANCE="$renderdistance" MCPI_USERNAME="$username" ./minecraft-pi-reborn-client-*.AppImage --no-cache
 fi
