@@ -141,6 +141,17 @@ else
 updater
 fi
 
+if [[ "$enableskins" != "false" ]];
+then
+if [ -d ~/.minecraft-pi/overrides/images/skins/.git/ ]; then
+git -C ~/.minecraft-pi/overrides/images/skins/ pull https://github.com/bsx-gh/bMCPIL-skins.git
+elif [ -d ~/.minecraft-pi/overrides/images/skins/ ]; then
+mv ~/.minecraft-pi/overrides/images/skins/ ~/.minecraft-pi/overrides/images/skins-old/
+git clone --quiet https://github.com/bsx-gh/bMCPIL-skins.git ~/.minecraft-pi/overrides/images/skins/
+else
+git clone --quiet https://github.com/bsx-gh/bMCPIL-skins.git ~/.minecraft-pi/overrides/images/skins/
+fi
+fi
 
 if [[ "$usedefaultflags" == "true" ]]; then
 MCPI_RENDER_DISTANCE="$renderdistance" MCPI_USERNAME="$username" ./minecraft-pi-reborn-client-*.AppImage --default --no-cache
