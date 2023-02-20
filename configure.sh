@@ -166,6 +166,25 @@ echo ""
 
 # Print the comments preceding the actual configuration
 echo '
+# EnableSkins
+# - Whether the launcher should automatically download skins' >> config.bcfg
+# Write the real configurations
+echo -n 'enableskins="' >> config.bcfg
+# Ask the user for their preference
+read -p "Enable the skin downloader: (true/false) " enableskins
+# Make sure it's valid, otherwise print an error and default to true
+if [[ "$enableskins" == "true" || "$enableskins" == "false" ]];
+then
+    echo -n $enableskins >> config.bcfg
+else
+    echo -n "true" >> config.bcfg
+    echo "${red}[Error] Unknown value. Defaulting to true.${rst}"
+fi
+echo '"' >> config.bcfg
+echo ""
+
+# Print the comments preceding the actual configuration
+echo '
 # Preset
 # - Which flag preset should the game use?' >> config.bcfg
 # Write the real configurations
