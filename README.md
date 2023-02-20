@@ -1,4 +1,9 @@
 # bMCPIL - MCPI-Reborn launcher written in Bash
+Dependencies:
+- Bash
+- Git (for the skin downloader)
+- cURL
+
 Installation:
 - Extract to any folder on your harddrive
 - Open a bash window and run `chmod +x launch.sh`
